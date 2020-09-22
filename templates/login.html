@@ -1,0 +1,35 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+
+    {% if userid %}
+    <script type="text/javascript">
+      alert('{{message}}');
+    </script>
+    {% else %}
+    <div class="inner">
+        <div class="main-content">
+            <h1>로그인</h1>
+            <section class="register-form">
+                <form method="POST" >   <!--엑션 삭제해야됌-->
+                    {{form.csrf_token}}
+
+                    <div class="form-group">
+                        {{form.userid.label("아이디")}}
+                        {{form.userid(type="text", class="form-control", placeholder="아이디")}}
+                    </div>
+                    <div class="form-group">
+                        {{form.password.label("비밀번호")}}
+                        {{form.password(type="password", class="form-control", placeholder="비밀번호")}}
+                    </div>
+                    {%if form.password.errors%}
+                    <div style="color:red;">{{form.password.errors.0}}</div>
+                    {%endif%}
+                    <button type="submit" class="button primary fit" style="margin-top:2em; ">로그인</button>
+                </form>
+            </section>
+        </div>
+    </div>
+    {% endif %}
+
+{% endblock %}

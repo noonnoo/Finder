@@ -1,0 +1,48 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+</br>
+<div class="inner">
+    <div class="main-content" style="width: 80%;">
+        <h1 style="margin-top:0.8em;">공개사진 중 내 사진 확인</h1>
+
+        <div style="text-align:center;">
+        <a onclick="download_all({{ imgs_urls|safe }});">내 사진 한번에 다운로드하기</a>
+        <p>개별 사진 다운로드는 표에서 사진을 클릭하면 다운받을 수 있습니다.
+        </p>
+        </div>
+
+        <table class="alt">
+            {% for img_url in imgs_urls %}
+            <tr>
+                <td>
+                    <div class="image fit" style="text-align:center; ">
+                        <a href="{{ img_url }}" download>
+                            <img src="{{ img_url }}" alt="단체사진" style="">
+                        </a>
+                    </div>
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+</div>
+
+<script type="text/javascript">
+    function download_all(data) {
+        console.log(data);
+        var link = document.createElement('a');
+        link.innerHTML = "<div id='ForDownload'></div>"
+        link.setAttribute('download', 'picture');
+        link.style.display = 'none';
+
+        for (var i = 0; i < data.length; i++) {
+            link.setAttribute('href', data[i]);
+            link.click();
+        }
+
+        document.getElementById("ForDownload").removeChild(link);
+    }
+</script>
+
+{% endblock %}

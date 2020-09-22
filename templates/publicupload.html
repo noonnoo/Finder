@@ -1,0 +1,23 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+
+<div class="inner">
+    <div class="main-content">
+        <h1 style="margin-top:0.8em;">공개적으로 단체사진 등록하기</h1>
+        <div style="text-align:center;">
+            <form method="POST" enctype="multipart/form-data">
+                {{ form.csrf_token }}
+                {{ form.hidden_tag() }}
+                {{ form.photo(multiple="multiple")}}
+                {% for error in form.photo.errors %}
+                    <span style="color: red;">{{ error }}</span>
+                {% endfor %}
+                <br/><br/>
+                {{ form.submit(class="fa-upload") }}
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,84 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+</br>
+<div class="inner">
+    <div class="main-content" style="width: 80%;">
+        <h1 style="margin-top:0.8em;">내가 업로드한 사진 분류확인</h1>
+
+        <div style="text-align:center;">
+        <a onclick="download_all({{ imgs_urls|safe }});">분류된 사진 한번에 다운로드하기</a>
+        <p>개별 사진 다운로드는 표에서 사진을 클릭하면 다운받을 수 있습니다.
+        </br>아직 분류가 되지 않은 경우 확인된 얼굴이 없을 수 있습니다. 조금만 더 기다려 주세요.
+        </p>
+        </div>
+
+        <table class="alt">
+            <tr>
+                <th style="text-align:center;">업로드 사진</th>
+                <th style="text-align:center;">확인된 얼굴</th>
+            </tr>
+            <tr>
+                <form class="form-inline" method="POST" action="{{ url_for('show_pictures') }}">
+                    <div class="form-group"><td>
+                        <div class="input-group">
+                            <select name="name" id="name" class="selectpicker form-control">
+                                <option value="all">전체</option>
+                                {% for each in name_list %}
+                                <option value="{{each}}" {% if select == each %} SELECTED {% endif %}>{{each}}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                            </td><td>
+                            <div style="text-align:center; ">
+                            <button type="submit" class="btn btn-default">확인</button>
+                            </div>
+                        </td>
+                    </div>
+                </form>
+            </tr>
+            
+            {% for img_url, face_list, faces_name_list in img_url_info %}
+            <tr>
+                <td>
+                    <div class="image fit" style="text-align:center; ">
+                        <a href="{{img_url}}" download>
+                            <img src="{{img_url}}" alt="단체사진" style="">
+                        </a>
+                    </div>
+                </td>
+                <td>
+                    <div class="image fit" style="text-align:center;">
+                    {% for face in face_list %}
+                        <a href="{{face}}" download>
+                            <img src="{{face}}" alt="">
+                            <p>{{faces_name_list[loop.index - 1]}}</p>
+                        </a>
+                    {% endfor %}
+                    </div>
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+</div>
+
+<script type="text/javascript">
+    var selected_name = '{{ select }}';
+    function download_all(data) {
+        console.log(data);
+        var link = document.createElement('a');
+        link.innerHTML = "<div id='ForDownload'></div>"
+        link.setAttribute('download', selected_name);
+        link.style.display = 'none';
+
+        for (var i = 0; i < data.length; i++) {
+            link.setAttribute('href', data[i]);
+            link.click();
+        }
+
+        document.getElementById("ForDownload").removeChild(link);
+    }
+</script>
+
+{% endblock %}

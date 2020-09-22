@@ -1,0 +1,9 @@
+{% extends 'layout.html' %}
+{% block content %}
+<div class="inner">
+    <div class="main-content">
+        <h1 style="margin-top:0.8em;">내 사진 등록하기</h1>
+        {{ dropzone.create(action=url_for('mypic')) }}
+    </div>
+</div>
+{% endblock %}

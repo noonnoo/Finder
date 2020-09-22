@@ -1,0 +1,16 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+<div class="inner">
+    <div class="main-content" style="margin-top:5em; margin-bottom:12em;">
+        {% if success %}
+        <h1>사진 업로드가 완료되었습니다.</h1>
+        <p>업로드된 사진이 분류되는 데에는 시간이 조금 걸립니다.
+        <br/>분류된 사진은 조금 뒤 확인하기 페이지에서 확인하실 수 있습니다.</p>
+        {% endif %}
+
+        <a href="{{ url_for('index') }}">메인 화면으로 돌아가기</a>
+
+    </div>
+</div>
+{% endblock %}

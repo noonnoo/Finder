@@ -1,0 +1,102 @@
+<!DOCTYPE HTML>
+<!--
+	Phantom by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html xmlns:background-color="http://www.w3.org/1999/xhtml">
+	<head>
+		<title>Finder</title>
+		{{ dropzone.load() }}
+	    {{ dropzone.style('border: 2px dashed #8f8f8f; margin: 5% 10% 5% 10%; min-height: 300px;') }}
+
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="{{ url_for('static', filename='assets/css/main.css') }}" />
+		<noscript><link rel="stylesheet" href="{{ url_for('static', filename='assets/css/noscript.css') }}" /></noscript>
+	</head>
+	<body class="is-preload">
+		<!-- Wrapper -->
+			<div id="wrapper">
+
+				<!-- Header -->
+					<header id="header">
+						<div class="inner">
+							<!-- Logo -->
+								<a href="{{ url_for('index') }}" class="logo">
+									<span class="symbol"><img src="{{ url_for('static', filename='images/logo.svg') }}" alt="" /></span><span class="title">Finder</span>
+								</a>
+
+							<!-- User Info-->
+							<div class="user_info">
+								{% if userid %}
+								{{userid}}님, 환영합니다.&emsp;<a href="{{ url_for('logout') }}" class="">로그아웃</a>
+								{% else %}
+								<a href="{{ url_for('login') }}" class="">로그인</a>&emsp;<a href="{{ url_for('signin') }}" class="">회원가입</a>
+								{% endif %}
+							</div>
+
+							<!-- Nav -->
+								<nav>
+									<ul>
+										<li><a href="#menu">Menu</a></li>
+									</ul>
+								</nav>
+
+						</div>
+					</header>
+
+				<!-- Menu -->
+					<nav id="menu">
+						<!--Menu-->
+						<h2>Menu</h2>
+						<ul>
+							<li><a href="{{ url_for('index') }}">Home</a></li>
+							{% if userid %}
+							<li><a href="{{ url_for('mypic') }}">내 사진 등록하기</a></li>
+							<li><a href="{{ url_for('picupload') }}">단체사진 업로드</a></li>
+							<li><a href="{{ url_for('show_pictures') }}">분류사진 확인하기</a></li>
+							<li><a href="{{ url_for('logout') }}">로그아웃하기</a></li>
+							{% else %}
+							<li><a href="{{ url_for('login') }}">로그인</a></li>
+							<li><a href="{{ url_for('signin') }}">회원가입</a></li>
+							{% endif %}
+						</ul>
+					</nav>
+
+				<!-- Main -->
+					<div id="main">
+						{% with messages = get_flashed_messages() %}
+							{% if messages %}
+							{% for message in messages %}
+							<!--{{ message }}-->
+							<script>
+								alert('{{message}}')   //이 부분이 중요
+							</script>
+							{% endfor %}
+							{% endif %}
+						{% endwith %}
+						{% block content %}{% endblock %}
+					</div>
+
+				<!-- Footer -->
+					<footer id="footer">
+						<div class="inner">
+							<ul class="copyright">
+								<li>&copy; Finder. All rights reserved to Daye Kim</li>
+                                <li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
+							</ul>
+						</div>
+					</footer>
+
+			</div>
+
+		<!-- Scripts -->
+			<script src="{{ url_for('static', filename='assets/js/jquery.min.js') }}"></script>
+			<script src="{{ url_for('static', filename='assets/js/browser.min.js') }}"></script>
+			<script src="{{ url_for('static', filename='assets/js/breakpoints.min.js') }}"></script>
+			<script src="{{ url_for('static', filename='assets/js/util.js') }}"></script>
+			<script src="{{ url_for('static', filename='assets/js/main.js') }}"></script>
+
+	</body>
+</html>
