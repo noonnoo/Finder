@@ -26,3 +26,6 @@
 
 ### 첫 화면
 ![127 0 0 1_5000_index](https://user-images.githubusercontent.com/33820372/93913928-bbe06100-fd40-11ea-9be5-d1642cca5d0b.png)
+
+### 졸업작품 발표 영상
+링크: https://youtu.be/Y_Cp4rOoP2k
